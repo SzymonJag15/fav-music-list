@@ -1,0 +1,10 @@
+.SingleAlbum {
+  width: 100%;
+  padding: 25px 15px;
+  border: 1px solid #000;
+  text-align: center;
+
+  &__title {
+    margin-bottom: 0;
+  }
+}
