@@ -9,6 +9,14 @@
     display: flex;
     align-items: center;
     padding: 25px 50px;
+    grid-gap: 15px;
+
+    .SingleAlbum__buttons-wrapper {
+      position: absolute;
+      right: 35px;
+      display: flex;
+      grid-gap: 15px;
+    }
   }
 
   &--grid {
