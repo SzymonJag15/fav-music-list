@@ -1,0 +1,12 @@
+{
+  "sorting": {
+    "from-the-newest": "Od najnowszych",
+    "from-the-oldest": "Od najstarszych",
+    "from-a-to-z": "Od A do Z",
+    "from-z-to-a": "Od Z do A",
+    "by-id": "Po ID"
+  },
+  "errors": {
+    "required-file": "Pole jest wymagane"
+  }
+}

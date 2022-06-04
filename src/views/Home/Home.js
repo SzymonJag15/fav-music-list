@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import AppWrapper from 'components/AppWrapper/AppWrapper';
+import AppLanguageSwitcher from 'components/AppLanguageSwitcher/AppLanguageSwitcher';
 import AlbumsWrapper from 'components/AlbumsWrapper/AlbumsWrapper';
 import SingleAlbum from 'components/SingleAlbum/SingleAlbum';
 
@@ -29,6 +31,7 @@ function Home() {
     formState: { errors },
   } = useForm();
 
+  const { t } = useTranslation();
   const [albums, setAlbums] = useState([]);
   const [selectedSort, setSelectedSort] = useState('');
   const [currentLayout, setCurrentLayout] = useState('grid');
@@ -41,9 +44,9 @@ function Home() {
   }, []);
 
   useEffect(() => {
+    if (albums.length === 0) return;
     setAlbumsStorage(albums);
 
-    if (albums.length === 0) return;
     switch (selectedSort) {
       case 'az':
         sortItemsByAZ(setAlbums);
@@ -80,6 +83,33 @@ function Home() {
   return (
     <div className="Home">
       <AppWrapper>
+        <div className="Home__controls-wrapper">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register('albumName', { required: true })} />
+            {errors.albumName && <span>{t('errors.required-file')}</span>}
+
+            <input type="submit" value="Add" disabled={errors.albumName} />
+          </form>
+
+          <select
+            value={selectedSort}
+            onChange={(e) => setSelectedSort(e.target.value)}
+          >
+            {OPTIONS().map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
+          <div className="Home__layout-switch-wrapper">
+            <button onClick={() => setCurrentLayout('grid')}>Grid</button>
+            <button onClick={() => setCurrentLayout('list')}>List</button>
+          </div>
+
+          <AppLanguageSwitcher />
+        </div>
+
         <AlbumsWrapper currentLayout={currentLayout}>
           {albums.map(({ id, title, isFavourite }) => (
             <SingleAlbum
@@ -92,28 +122,6 @@ function Home() {
             />
           ))}
         </AlbumsWrapper>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register('albumName', { required: true })} />
-          {errors.albumName && <span>This field is required</span>}
-
-          <input type="submit" value="Add" disabled={errors.albumName} />
-        </form>
-
-        <div className="Home__layout-switch-wrapper">
-          <button onClick={() => setCurrentLayout('grid')}>Grid</button>
-          <button onClick={() => setCurrentLayout('list')}>List</button>
-        </div>
-
-        <select
-          value={selectedSort}
-          onChange={(e) => setSelectedSort(e.target.value)}
-        >
-          {OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
       </AppWrapper>
     </div>
   );
