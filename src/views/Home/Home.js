@@ -75,7 +75,7 @@ function Home() {
     const newAlbum = {
       id: Math.floor(Math.random() * 100) + 1,
       title: albumName,
-      date: Date.parse(new Date()),
+      date: new Date(),
       isFavourite: false,
     };
 
@@ -105,16 +105,18 @@ function Home() {
             ))}
           </select>
 
-          <div className="Home__layout-switch-wrapper">
-            <button onClick={() => setCurrentLayout('grid')}>
-              <Grid isActive={currentLayout === 'grid'} />
-            </button>
-            <button onClick={() => setCurrentLayout('list')}>
-              <List isActive={currentLayout === 'list'} />
-            </button>
-          </div>
+          <div>
+            <div className="Home__layout-switch-wrapper">
+              <button onClick={() => setCurrentLayout('grid')}>
+                <Grid isActive={currentLayout === 'grid'} />
+              </button>
+              <button onClick={() => setCurrentLayout('list')}>
+                <List isActive={currentLayout === 'list'} />
+              </button>
+            </div>
 
-          <AppLanguageSwitcher />
+            <AppLanguageSwitcher />
+          </div>
         </div>
 
         <AlbumsWrapper currentLayout={currentLayout}>

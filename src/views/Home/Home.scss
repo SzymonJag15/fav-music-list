@@ -1,7 +1,14 @@
 .Home {
   &__controls-wrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     margin-bottom: 25px;
+  }
+
+  &__layout-switch-wrapper {
+    button {
+      border: none;
+      background-color: transparent;
+    }
   }
 }
