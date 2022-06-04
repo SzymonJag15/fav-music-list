@@ -7,6 +7,9 @@ import AppLanguageSwitcher from 'components/AppLanguageSwitcher/AppLanguageSwitc
 import AlbumsWrapper from 'components/AlbumsWrapper/AlbumsWrapper';
 import SingleAlbum from 'components/SingleAlbum/SingleAlbum';
 
+import Grid from 'assets/svg/Grid/Grid';
+import List from 'assets/svg/List/List';
+
 import {
   setAlbumsStorage,
   addNewAlbum,
@@ -103,8 +106,12 @@ function Home() {
           </select>
 
           <div className="Home__layout-switch-wrapper">
-            <button onClick={() => setCurrentLayout('grid')}>Grid</button>
-            <button onClick={() => setCurrentLayout('list')}>List</button>
+            <button onClick={() => setCurrentLayout('grid')}>
+              <Grid isActive={currentLayout === 'grid'} />
+            </button>
+            <button onClick={() => setCurrentLayout('list')}>
+              <List isActive={currentLayout === 'list'} />
+            </button>
           </div>
 
           <AppLanguageSwitcher />
@@ -117,6 +124,7 @@ function Home() {
               id={id}
               isFavourite={isFavourite}
               title={title}
+              currentLayout={currentLayout}
               addToFavourite={() => toggleFavourites(setAlbums, id)}
               remove={() => removeAlbum(setAlbums, id)}
             />

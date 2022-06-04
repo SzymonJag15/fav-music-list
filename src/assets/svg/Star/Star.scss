@@ -1,0 +1,15 @@
+.Star {
+  width: 24px;
+  transition: .3s;
+
+  &:hover {
+    cursor: pointer;
+    color: yellow;
+    fill: yellow;
+  }
+
+  &--active {
+    color: yellow;
+    fill: yellow;
+  }
+}

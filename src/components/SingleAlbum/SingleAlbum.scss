@@ -3,70 +3,44 @@
   padding: 25px 15px;
   border: 1px solid #000;
   text-align: center;
+  position: relative;
+
+  &--list {
+    display: flex;
+    align-items: center;
+    padding: 25px 50px;
+  }
+
+  &--grid {
+    .SingleAlbum__image {
+      margin-bottom: 15px;
+    }
+
+    .SingleAlbum__buttons-wrapper {
+      .favourite {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+
+      .delete {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+    }
+  }
 
   &__title {
     margin-bottom: 0;
   }
 
   &__buttons-wrapper {
-    .favourite {
-      &--active {
-        background-color: red;
-      }
+    .favourite,
+    .delete {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
     }
-  }
-}
-
-.fade-in {
-  transition: all 0.5s;
-  animation: fadeIn 1s;
-  -webkit-animation: fadeIn 1s;
-  -moz-animation: fadeIn 1s;
-  -o-animation: fadeIn 1s;
-  -ms-animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-moz-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

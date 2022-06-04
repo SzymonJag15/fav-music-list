@@ -2,5 +2,6 @@
   &__controls-wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 25px;
   }
 }
