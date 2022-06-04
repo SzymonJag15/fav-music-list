@@ -7,6 +7,14 @@
   &__title {
     margin-bottom: 0;
   }
+
+  &__buttons-wrapper {
+    .favourite {
+      &--active {
+        background-color: red;
+      }
+    }
+  }
 }
 
 .fade-in {

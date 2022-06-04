@@ -12,6 +12,8 @@ import {
   sortItemsByZA,
   sortItemsByDateDsc,
   sortItemsByDateAsc,
+  sortItemsByID,
+  toggleFavourites,
   removeAlbum,
 } from 'utils/albums';
 
@@ -30,17 +32,6 @@ function Home() {
   const [albums, setAlbums] = useState([]);
   const [selectedSort, setSelectedSort] = useState('');
 
-  const onSubmit = ({ albumName }) => {
-    const newAlbum = {
-      id: Math.floor(Math.random() * 100) + 1,
-      title: albumName,
-      date: Date.parse(new Date()),
-    };
-
-    addNewAlbum(setAlbums, newAlbum, albums);
-    reset();
-  };
-
   useEffect(() => {
     const albumsFromStorage = JSON.parse(localStorage.getItem('albums'));
 
@@ -52,22 +43,51 @@ function Home() {
     setAlbumsStorage(albums);
 
     if (albums.length === 0) return;
-    if (selectedSort === 'az') return sortItemsByAZ(setAlbums);
-    if (selectedSort === 'za') return sortItemsByZA(setAlbums);
-    if (selectedSort === 'asc') return sortItemsByDateAsc(setAlbums);
-    if (selectedSort === 'dsc') return sortItemsByDateDsc(setAlbums);
+    switch (selectedSort) {
+      case 'az':
+        sortItemsByAZ(setAlbums);
+        break;
+      case 'za':
+        sortItemsByZA(setAlbums);
+        break;
+      case 'asc':
+        sortItemsByDateAsc(setAlbums);
+        break;
+      case 'dsc':
+        sortItemsByDateDsc(setAlbums);
+        break;
+      case 'id':
+        sortItemsByID(setAlbums);
+        break;
+      default:
+        sortItemsByDateAsc(setAlbums);
+    }
   }, [selectedSort, albums.length]);
+
+  const onSubmit = ({ albumName }) => {
+    const newAlbum = {
+      id: Math.floor(Math.random() * 100) + 1,
+      title: albumName,
+      date: Date.parse(new Date()),
+      isFavourite: false,
+    };
+
+    addNewAlbum(setAlbums, newAlbum, albums);
+    reset();
+  };
 
   return (
     <div className="Home">
       <AppWrapper>
         <AlbumsWrapper>
-          {albums.map(({ id, title }) => (
+          {albums.map(({ id, title, isFavourite }) => (
             <SingleAlbum
               key={id}
               id={id}
+              isFavourite={isFavourite}
               title={title}
-              remove={() => removeAlbum(setAlbums, id, albums)}
+              addToFavourite={() => toggleFavourites(setAlbums, id)}
+              remove={() => removeAlbum(setAlbums, id)}
             />
           ))}
         </AlbumsWrapper>
