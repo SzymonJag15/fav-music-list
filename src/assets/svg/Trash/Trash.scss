@@ -1,0 +1,9 @@
+.Trash {
+  width: 24px;
+  transition: .3s;
+
+  &:hover {
+    color: red;
+    cursor: pointer;
+  }
+}
