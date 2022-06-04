@@ -31,6 +31,7 @@ function Home() {
 
   const [albums, setAlbums] = useState([]);
   const [selectedSort, setSelectedSort] = useState('');
+  const [currentLayout, setCurrentLayout] = useState('grid');
 
   useEffect(() => {
     const albumsFromStorage = JSON.parse(localStorage.getItem('albums'));
@@ -79,7 +80,7 @@ function Home() {
   return (
     <div className="Home">
       <AppWrapper>
-        <AlbumsWrapper>
+        <AlbumsWrapper currentLayout={currentLayout}>
           {albums.map(({ id, title, isFavourite }) => (
             <SingleAlbum
               key={id}
@@ -91,13 +92,17 @@ function Home() {
             />
           ))}
         </AlbumsWrapper>
-
         <form onSubmit={handleSubmit(onSubmit)}>
           <input {...register('albumName', { required: true })} />
           {errors.albumName && <span>This field is required</span>}
 
           <input type="submit" value="Add" disabled={errors.albumName} />
         </form>
+
+        <div className="Home__layout-switch-wrapper">
+          <button onClick={() => setCurrentLayout('grid')}>Grid</button>
+          <button onClick={() => setCurrentLayout('list')}>List</button>
+        </div>
 
         <select
           value={selectedSort}
