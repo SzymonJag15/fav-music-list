@@ -1,7 +1,17 @@
 import './AlbumsWrapper.scss';
 
-function AlbumsWrapper({ children }) {
-  return <div className="AlbumsWrapper">{children}</div>;
+function AlbumsWrapper({ currentLayout, children }) {
+  return (
+    <div
+      className={
+        currentLayout === 'grid'
+          ? 'AlbumsWrapper AlbumsWrapper--grid'
+          : 'AlbumsWrapper AlbumsWrapper--list'
+      }
+    >
+      {children}
+    </div>
+  );
 }
 
 export default AlbumsWrapper;

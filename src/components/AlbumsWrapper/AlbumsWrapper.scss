@@ -1,5 +1,12 @@
 .AlbumsWrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
+
+  &--grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &--list {
+    grid-template-columns: 1fr;
+  }
 }
