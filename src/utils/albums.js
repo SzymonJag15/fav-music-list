@@ -28,12 +28,7 @@ export const sortItemsByZA = (setterAlbums) => {
 
 export const sortItemsByDateDsc = (setterAlbums) => {
   setterAlbums((oldAlbums) => {
-    const sortedAlbums = [
-      ...oldAlbums.sort((a, b) => {
-        console.log(b.date + a.date);
-        return b.date + a.date;
-      }),
-    ];
+    const sortedAlbums = [...oldAlbums.sort((a, b) => b.date - a.date)];
     setAlbumsStorage(sortedAlbums);
     return sortedAlbums;
   });
@@ -41,20 +36,36 @@ export const sortItemsByDateDsc = (setterAlbums) => {
 
 export const sortItemsByDateAsc = (setterAlbums) => {
   setterAlbums((oldAlbums) => {
-    const sortedAlbums = [
-      ...oldAlbums.sort((a, b) => {
-        console.log(b.date - a.date);
-        return b.date - a.date;
-      }),
-    ];
+    const sortedAlbums = [...oldAlbums.sort((a, b) => a.date - b.date)];
     setAlbumsStorage(sortedAlbums);
     return sortedAlbums;
   });
 };
 
-export const removeAlbum = (setterAlbums, id, albums) => {
-  setterAlbums((oldAlbums) => [
-    ...oldAlbums.filter((album) => album.id !== id),
-  ]);
-  setAlbumsStorage(albums);
+export const sortItemsByID = (setterAlbums) => {
+  setterAlbums((oldAlbums) => {
+    const sortedAlbums = [...oldAlbums.sort((a, b) => a.id - b.id)];
+    setAlbumsStorage(sortedAlbums);
+    return sortedAlbums;
+  });
+};
+
+export const toggleFavourites = (setterAlbums, id) => {
+  setterAlbums((oldAlbums) => {
+    const newAlbumsArray = [
+      ...oldAlbums.map((album) =>
+        album.id === id ? { ...album, isFavourite: !album.isFavourite } : album
+      ),
+    ];
+    setAlbumsStorage(newAlbumsArray);
+    return newAlbumsArray;
+  });
+};
+
+export const removeAlbum = (setterAlbums, id) => {
+  setterAlbums((oldAlbums) => {
+    const newAlbumsArray = [...oldAlbums.filter((album) => album.id !== id)];
+    setAlbumsStorage(newAlbumsArray);
+    return newAlbumsArray;
+  });
 };
