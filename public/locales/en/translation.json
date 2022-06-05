@@ -9,7 +9,7 @@
     "by-id": "By ID"
   },
   "form": {
-    "submit": "Add"
+    "submit": "Add to list"
   },
   "errors": {
     "required-file": "This field is required"
