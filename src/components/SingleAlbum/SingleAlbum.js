@@ -13,11 +13,10 @@ function SingleAlbum({
 }) {
   return (
     <div
-      className={
-        currentLayout === 'grid'
-          ? 'SingleAlbum SingleAlbum--grid'
-          : 'SingleAlbum SingleAlbum--list'
-      }
+      className={`
+        SingleAlbum 
+        ${currentLayout === 'grid' ? 'SingleAlbum--grid' : 'SingleAlbum--list'}
+        ${isFavourite ? 'SingleAlbum--favourite' : ''}`}
     >
       <img
         src={`https://source.unsplash.com/random/100x100/?img=${id}`}
@@ -28,7 +27,7 @@ function SingleAlbum({
       <p className="SingleAlbum__title">{title}</p>
 
       <div className="SingleAlbum__buttons-wrapper">
-        <button className={'favourite'} onClick={() => addToFavourite(id)}>
+        <button className="favourite" onClick={() => addToFavourite(id)}>
           <Star isActive={isFavourite} />
         </button>
         <button className="delete" onClick={() => remove(id)}>

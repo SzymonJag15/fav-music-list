@@ -3,11 +3,11 @@ import './AlbumsWrapper.scss';
 function AlbumsWrapper({ currentLayout, children }) {
   return (
     <div
-      className={
-        currentLayout === 'grid'
-          ? 'AlbumsWrapper AlbumsWrapper--grid'
-          : 'AlbumsWrapper AlbumsWrapper--list'
-      }
+      className={`
+      AlbumsWrapper 
+      ${
+        currentLayout === 'grid' ? 'AlbumsWrapper--grid' : 'AlbumsWrapper--list'
+      }`}
     >
       {children}
     </div>

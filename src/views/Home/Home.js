@@ -13,11 +13,7 @@ import List from 'assets/svg/List/List';
 import {
   setAlbumsStorage,
   addNewAlbum,
-  sortItemsByAZ,
-  sortItemsByZA,
-  sortItemsByDateDsc,
-  sortItemsByDateAsc,
-  sortItemsByID,
+  sortBy,
   toggleFavourites,
   removeAlbum,
 } from 'utils/albums';
@@ -31,13 +27,14 @@ function Home() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm();
+    formState: { isDirty, isValid },
+  } = useForm({ mode: 'onChange' });
 
   const { t } = useTranslation();
   const [albums, setAlbums] = useState([]);
-  const [selectedSort, setSelectedSort] = useState('');
+  const [selectedSort, setSelectedSort] = useState('asc');
   const [currentLayout, setCurrentLayout] = useState('grid');
+  const [addFormVisible, setAddFormVisible] = useState(false);
 
   useEffect(() => {
     const albumsFromStorage = JSON.parse(localStorage.getItem('albums'));
@@ -49,37 +46,19 @@ function Home() {
   useEffect(() => {
     if (albums.length === 0) return;
     setAlbumsStorage(albums);
-
-    switch (selectedSort) {
-      case 'az':
-        sortItemsByAZ(setAlbums);
-        break;
-      case 'za':
-        sortItemsByZA(setAlbums);
-        break;
-      case 'asc':
-        sortItemsByDateAsc(setAlbums);
-        break;
-      case 'dsc':
-        sortItemsByDateDsc(setAlbums);
-        break;
-      case 'id':
-        sortItemsByID(setAlbums);
-        break;
-      default:
-        sortItemsByDateAsc(setAlbums);
-    }
+    sortBy(selectedSort, setAlbums);
   }, [selectedSort, albums.length]);
 
   const onSubmit = ({ albumName }) => {
     const newAlbum = {
       id: Math.floor(Math.random() * 100) + 1,
       title: albumName,
-      date: new Date(),
+      date: Date.parse(new Date()),
       isFavourite: false,
     };
 
     addNewAlbum(setAlbums, newAlbum, albums);
+    setAddFormVisible((old) => !old);
     reset();
   };
 
@@ -87,16 +66,44 @@ function Home() {
     <div className="Home">
       <AppWrapper>
         <div className="Home__controls-wrapper">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register('albumName', { required: true })} />
-            {errors.albumName && <span>{t('errors.required-file')}</span>}
+          <div className="title-wrapper">
+            <h1 className="title">{t('title')}</h1>
+            <button
+              className="add-album"
+              onClick={() => setAddFormVisible((old) => !old)}
+            >
+              +
+            </button>
+            <p className="add-album-title">{t('add-album')}</p>
+          </div>
 
-            <input type="submit" value="Add" disabled={errors.albumName} />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={`
+              add-album-form 
+              ${addFormVisible ? 'add-album-form--visible' : ''}
+            `}
+          >
+            <input
+              {...register('albumName', { required: true })}
+              className="add-album-form__text-input"
+            />
+            <input
+              type="submit"
+              value={t('form.submit')}
+              disabled={!isDirty || !isValid}
+              className="add-album-form__submit-input"
+            />
           </form>
 
+          <AppLanguageSwitcher />
+        </div>
+
+        <div className="Home__layout-switch-wrapper">
           <select
             value={selectedSort}
             onChange={(e) => setSelectedSort(e.target.value)}
+            className="select-sort-input"
           >
             {OPTIONS().map((option) => (
               <option key={option.value} value={option.value}>
@@ -105,32 +112,32 @@ function Home() {
             ))}
           </select>
 
-          <div>
-            <div className="Home__layout-switch-wrapper">
-              <button onClick={() => setCurrentLayout('grid')}>
-                <Grid isActive={currentLayout === 'grid'} />
-              </button>
-              <button onClick={() => setCurrentLayout('list')}>
-                <List isActive={currentLayout === 'list'} />
-              </button>
-            </div>
-
-            <AppLanguageSwitcher />
+          <div className="buttons">
+            <button onClick={() => setCurrentLayout('list')}>
+              <List isActive={currentLayout === 'list'} />
+            </button>
+            <button onClick={() => setCurrentLayout('grid')}>
+              <Grid isActive={currentLayout === 'grid'} />
+            </button>
           </div>
         </div>
 
         <AlbumsWrapper currentLayout={currentLayout}>
-          {albums.map(({ id, title, isFavourite }) => (
-            <SingleAlbum
-              key={id}
-              id={id}
-              isFavourite={isFavourite}
-              title={title}
-              currentLayout={currentLayout}
-              addToFavourite={() => toggleFavourites(setAlbums, id)}
-              remove={() => removeAlbum(setAlbums, id)}
-            />
-          ))}
+          {albums.length > 0 ? (
+            albums.map(({ id, title, isFavourite }) => (
+              <SingleAlbum
+                key={id}
+                id={id}
+                isFavourite={isFavourite}
+                title={title}
+                currentLayout={currentLayout}
+                addToFavourite={() => toggleFavourites(setAlbums, id)}
+                remove={() => removeAlbum(setAlbums, id)}
+              />
+            ))
+          ) : (
+            <p>Brak albumów.</p>
+          )}
         </AlbumsWrapper>
       </AppWrapper>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'index.css';
+import 'index.scss';
 import Home from 'views/Home/Home';
 
 import './i18n';

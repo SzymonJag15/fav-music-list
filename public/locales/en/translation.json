@@ -1,10 +1,15 @@
 {
+  "title": "Your albums",
+  "add-album": "Add album",
   "sorting": {
     "from-the-newest": "From the newest",
     "from-the-oldest": "From the oldest",
     "from-a-to-z": "A - Z",
     "from-z-to-a": "Z - A",
     "by-id": "By ID"
+  },
+  "form": {
+    "submit": "Add"
   },
   "errors": {
     "required-file": "This field is required"
