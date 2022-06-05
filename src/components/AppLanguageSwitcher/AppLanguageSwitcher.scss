@@ -1,0 +1,36 @@
+.AppLanguageSwitcher {
+  display: flex;
+  justify-content: flex-end;
+
+  position: absolute;
+  right: 15px;
+
+  @media (min-width: 992px) {
+    position: inherit;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px;
+    border: none;
+    background-color: var(--white-color);
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &.active {
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      font-weight: 600;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: var(--input-radius);
+      border-bottom-left-radius: var(--input-radius);
+    }
+
+    &:last-of-type {
+      border-top-right-radius: var(--input-radius);
+      border-bottom-right-radius: var(--input-radius);
+    }
+  }
+}

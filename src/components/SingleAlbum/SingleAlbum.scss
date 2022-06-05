@@ -1,30 +1,55 @@
 .SingleAlbum {
   width: 100%;
   padding: 25px 15px;
-  border: 1px solid #000;
+  border: 1px solid var(--light-gray-color);
+  border-radius: 10px;
+  background-color: var(--white-color);
   text-align: center;
   position: relative;
+  -webkit-box-shadow: 5px 5px 24px 0px var(--light-gray-color);
+  -moz-box-shadow: 5px 5px 24px 0px var(--light-gray-color);
+  box-shadow: 5px 5px 24px 0px var(--light-gray-color);
+
+  &--favourite {
+    border-color: var(--primary-color);
+  }
 
   &--list {
     display: flex;
     align-items: center;
-    padding: 25px 50px;
+    justify-content: space-between;
+    padding: 25px;
     grid-gap: 15px;
 
+    @media (min-width: 992px) {
+      padding: 25px 50px;
+      justify-content: flex-start;
+    }
+
     .SingleAlbum__buttons-wrapper {
-      position: absolute;
-      right: 35px;
       display: flex;
       grid-gap: 15px;
+
+      @media (min-width: 992px) {
+        position: absolute;
+        right: 35px;
+      }
     }
   }
 
   &--grid {
-    .SingleAlbum__image {
-      margin-bottom: 15px;
-    }
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 20px;
 
     .SingleAlbum__buttons-wrapper {
+      position: absolute;
+      top: 0;
+      width: 100%;
+
       .favourite {
         position: absolute;
         top: 10px;
@@ -46,9 +71,27 @@
   &__buttons-wrapper {
     .favourite,
     .delete {
+      padding: 8px;
+      border-radius: 10px;
+      color: var(--white-color);
+      background-color: var(--primary-color);
       border: none;
-      background-color: transparent;
       cursor: pointer;
+      transition: .3s;
+    }
+
+    .favourite {
+      &:hover {
+        .Star {
+          fill: var(--white-color);
+        }
+      }
+    }
+
+    .delete {
+      &:hover {
+        background-color: var(--red-color);
+      }
     }
   }
 }

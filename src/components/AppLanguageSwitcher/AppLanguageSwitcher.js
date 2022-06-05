@@ -11,12 +11,18 @@ function AppLanguageSwitcher() {
 
   return (
     <div className="AppLanguageSwitcher">
-      {i18n.language === 'en' && (
-        <button onClick={() => changeLanguage('pl')}>pl</button>
-      )}
-      {i18n.language === 'pl' && (
-        <button onClick={() => changeLanguage('en')}>en</button>
-      )}
+      <button
+        className={i18n.language === 'en' && 'active'}
+        onClick={() => changeLanguage('en')}
+      >
+        en
+      </button>
+      <button
+        className={i18n.language === 'pl' && 'active'}
+        onClick={() => changeLanguage('pl')}
+      >
+        pl
+      </button>
     </div>
   );
 }

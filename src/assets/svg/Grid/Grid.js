@@ -10,7 +10,7 @@ function Grid({ isActive }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={isActive ? 'Grid Grid--active' : 'Grid'}
+      className={`Grid ${isActive ? 'Grid--active' : ''}`}
     >
       <rect x="3" y="3" width="7" height="7"></rect>
       <rect x="14" y="3" width="7" height="7"></rect>

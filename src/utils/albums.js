@@ -28,7 +28,7 @@ export const sortItemsByZA = (setterAlbums) => {
 
 export const sortItemsByDateDsc = (setterAlbums) => {
   setterAlbums((oldAlbums) => {
-    const sortedAlbums = [...oldAlbums.sort((a, b) => b.date - a.date)];
+    const sortedAlbums = [...oldAlbums.sort((a, b) => a.date - b.date)];
     setAlbumsStorage(sortedAlbums);
     return sortedAlbums;
   });
@@ -36,7 +36,7 @@ export const sortItemsByDateDsc = (setterAlbums) => {
 
 export const sortItemsByDateAsc = (setterAlbums) => {
   setterAlbums((oldAlbums) => {
-    const sortedAlbums = [...oldAlbums.sort((a, b) => a.date - b.date)];
+    const sortedAlbums = [...oldAlbums.sort((a, b) => b.date - a.date)];
     setAlbumsStorage(sortedAlbums);
     return sortedAlbums;
   });
@@ -48,6 +48,28 @@ export const sortItemsByID = (setterAlbums) => {
     setAlbumsStorage(sortedAlbums);
     return sortedAlbums;
   });
+};
+
+export const sortBy = (selectedValue, setterAlbums) => {
+  switch (selectedValue) {
+    case 'az':
+      sortItemsByAZ(setterAlbums);
+      break;
+    case 'za':
+      sortItemsByZA(setterAlbums);
+      break;
+    case 'asc':
+      sortItemsByDateAsc(setterAlbums);
+      break;
+    case 'dsc':
+      sortItemsByDateDsc(setterAlbums);
+      break;
+    case 'id':
+      sortItemsByID(setterAlbums);
+      break;
+    default:
+      sortItemsByDateAsc(setterAlbums);
+  }
 };
 
 export const toggleFavourites = (setterAlbums, id) => {

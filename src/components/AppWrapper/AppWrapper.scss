@@ -1,4 +1,9 @@
 .AppWrapper {
   max-width: calc(1237px);
   margin: 0 auto;
+  padding: 0 15px;
+
+  @media (min-width: 1366px) {
+    padding: 0;
+  }
 }
