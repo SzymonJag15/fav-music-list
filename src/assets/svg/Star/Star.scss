@@ -1,0 +1,9 @@
+.Star {
+  width: 20px;
+  transition: .3s;
+
+  &--active {
+    color: var(--white-color);
+    fill: var(--white-color);
+  }
+}

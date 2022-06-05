@@ -1,0 +1,14 @@
+.List {
+  width: 20px;
+  opacity: .3;
+  transition: .3s;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &--active {
+    opacity: 1;
+  }
+}

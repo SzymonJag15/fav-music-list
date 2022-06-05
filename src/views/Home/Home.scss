@@ -1,0 +1,127 @@
+.Home {
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #f5f9fd;
+  padding-bottom: 50px;
+
+  &__controls-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    border-bottom: 1px solid var(--light-gray-color);
+    padding: 25px 0;
+    margin-bottom: 25px;
+
+    @media (min-width: 992px) {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    .title-wrapper {
+      display: flex;
+      align-items: center;
+      grid-gap: 15px;
+
+      .add-album {
+        font-size: 30px;
+        color: var(--primary-color);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        animation: pulse 1s infinite;
+        position: relative;
+
+        &:hover + .add-album-title {
+          opacity: 1
+        }
+      } 
+
+      .add-album-title {
+        font-size: 12px;
+        color: var(--primary-color);
+        opacity: 0;
+        transition: .3s;
+      }
+    }
+
+    .add-album-form {
+      transform: scaleX(0);
+      transform-origin: top left;
+      transition: 1s;
+
+      &--visible {
+        transform: scaleX(1);
+      }
+
+      &__text-input {
+        border: 1px solid var(--light-gray-color);
+        height: var(--input-height);
+        width: calc(100% - 95px);
+        border-radius: var(--input-radius);
+        outline: none;
+        padding: 0 10px;
+
+        @media (min-width: 992px) {
+          width: calc(100% - 145px);
+        }
+      }
+
+      &__submit-input {
+        height: var(--input-height);
+        width: 80px;
+        border: 1px solid var(--primary-color);
+        border-radius: var(--input-radius);
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        margin-left: 15px;
+        cursor: pointer;
+        transition: .3s;
+
+        &:hover {
+          background-color: var(--white-color);
+          color: var(--primary-color);
+        }
+
+        &:disabled {
+          opacity: .3;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  &__layout-switch-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+
+    .select-sort-input {
+      border: 1px solid var(--light-gray-color);
+      height: var(--input-height);
+      width: 250px;
+      border-radius: var(--input-radius);
+      outline: none;
+      padding: 0 10px;
+    }
+
+    .buttons {
+      button {
+        padding: 0 5px;
+        border: none;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
